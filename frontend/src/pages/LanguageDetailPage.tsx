@@ -4,7 +4,6 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import Layout from '../components/common/Layout';
 import LessonCard from '../components/learning/LessonCard';
-import ProgressBar from '../components/learning/ProgressBar';
 import { Code, BookOpen, RefreshCw, Layers, AlertCircle } from 'lucide-react';
 
 const LanguageDetailPage: React.FC = () => {
@@ -18,11 +17,14 @@ const LanguageDetailPage: React.FC = () => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
-      
+
       try {
+        const token = localStorage.getItem('access');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
         const [languageRes, progressRes] = await Promise.all([
-          axios.get(`${API_URL}/api/languages/${slug}/`),
-          axios.get(`${API_URL}/api/progress/`)
+          axios.get(`${API_URL}/api/languages/${slug}/`, { headers }),
+          axios.get(`${API_URL}/api/progress/`, { headers })
         ]);
         
         setLanguage(languageRes.data);
@@ -46,7 +48,11 @@ const LanguageDetailPage: React.FC = () => {
   
   const calculateOverallProgress = () => {
     if (!language || !language.lessons || language.lessons.length === 0) {
-      return 0;
+      return {
+        completed: 0,
+        total: 0,
+        percentage: 0
+      };
     }
     
     const totalLessons = language.lessons.length;
@@ -62,7 +68,7 @@ const LanguageDetailPage: React.FC = () => {
     };
   };
   
-  const isLessonLocked = (lesson: any, index: number) => {
+  const isLessonLocked = (index: number) => {
     if (index === 0) return false;
     
     const previousLesson = language.lessons[index - 1];
@@ -146,7 +152,7 @@ const LanguageDetailPage: React.FC = () => {
               .sort((a: any, b: any) => a.level - b.level || a.order - b.order)
               .map((lesson: any, index: number) => {
                 const lessonProgress = getLessonProgress(lesson.id);
-                const locked = isLessonLocked(lesson, index);
+                const locked = isLessonLocked(index);
                 
                 return (
                   <LessonCard 

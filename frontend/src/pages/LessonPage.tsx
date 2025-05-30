@@ -82,6 +82,7 @@ const LessonPage: React.FC = () => {
     }
   };
   
+  
   const canCompleteLesson = () => {
     if (!lesson) return false;
     
