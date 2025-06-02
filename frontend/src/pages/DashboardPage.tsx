@@ -61,6 +61,10 @@ const DashboardPage: React.FC = () => {
     };
   };
   
+  const isLessonCompleted = (lessonId: number) => {
+    return progress.some((p) => p.lesson === lessonId && p.completed);
+  };
+  
   if (isLoading) {
     return (
       <Layout>
@@ -104,7 +108,7 @@ const DashboardPage: React.FC = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {languages.slice(0, 4).map((language: any) => {
-                  const progress = getLanguageProgress(language.id);
+                  const langLessons = language.lessons || [];
                   return (
                     <Link 
                       key={language.id}
@@ -119,10 +123,21 @@ const DashboardPage: React.FC = () => {
                       </div>
                       
                       <ProgressBar 
-                        value={progress.completed} 
-                        max={progress.total}
-                        label={`${progress.completed}/${progress.total} lessons completed`}
+                        value={getLanguageProgress(language.id).completed} 
+                        max={getLanguageProgress(language.id).total}
+                        label={`${getLanguageProgress(language.id).completed}/${getLanguageProgress(language.id).total} lessons completed`}
                       />
+                      
+                      <div className="mt-4 space-y-2">
+                        {langLessons.map((lesson: any) => (
+                          <div key={lesson.id} className="flex items-center">
+                            <span>{lesson.title}</span>
+                            {isLessonCompleted(lesson.id) && (
+                              <span className="ml-2 text-green-600">✔️</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </Link>
                   );
                 })}

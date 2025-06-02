@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Progress
+from .models import Progress, UserBadge
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -24,4 +24,9 @@ class ProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Progress
+        fields = ['id', 'lesson', 'completed', 'user']
+
+class UserBadgeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserBadge
         fields = '__all__'

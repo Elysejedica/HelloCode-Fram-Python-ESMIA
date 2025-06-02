@@ -9,3 +9,8 @@ class Progress(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.lesson} - {'Done' if self.completed else 'Not done'}"
+
+class UserBadge(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    badge_name = models.CharField(max_length=100)
+    earned_at = models.DateTimeField(auto_now_add=True)

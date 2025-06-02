@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import RegisterSerializer, ProgressSerializer
+from .serializers import RegisterSerializer, ProgressSerializer, UserBadgeSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
-from .models import Progress
-from languages.models import Lesson
+from .models import Progress, UserBadge
 
 # Create your views here.
 
@@ -21,11 +20,15 @@ class ProfileView(APIView):
 
     def get(self, request):
         user = request.user
+        progress = Progress.objects.filter(user=user)
+        badges = UserBadge.objects.filter(user=user)
         return Response({
             "username": user.username,
-            "email": user.email,
             "first_name": user.first_name,
             "last_name": user.last_name,
+            "email": user.email,
+            "progress": ProgressSerializer(progress, many=True).data,
+            "badges": UserBadgeSerializer(badges, many=True).data,
         })
 
 class ProgressListView(APIView):
@@ -43,8 +46,10 @@ class ProgressListView(APIView):
         return Response(data)
 
 class ProgressListCreateView(generics.ListCreateAPIView):
-    queryset = Progress.objects.all()
     serializer_class = ProgressSerializer
+
+    def get_queryset(self):
+        return Progress.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -52,4 +57,10 @@ class ProgressListCreateView(generics.ListCreateAPIView):
 class ProgressDetailView(generics.RetrieveUpdateAPIView):
     queryset = Progress.objects.all()
     serializer_class = ProgressSerializer
+
+class UserBadgeListView(generics.ListAPIView):
+    serializer_class = UserBadgeSerializer
+
+    def get_queryset(self):
+        return UserBadge.objects.filter(user=self.request.user)
 
