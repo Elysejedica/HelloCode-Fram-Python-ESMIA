@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
@@ -12,11 +12,17 @@ import LanguagesPage from './pages/LanguagesPage';
 import LanguageDetailPage from './pages/LanguageDetailPage';
 import LessonPage from './pages/LessonPage';
 import ProfilePage from './pages/ProfilePage';
+import ExercisePage from './pages/ExercisePage';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <div className="w-full bg-gray-100 py-2 px-4 flex justify-end">
+          <Link to="/exercise" className="btn btn-outline">
+            Exercice
+          </Link>
+        </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -58,6 +64,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/exercise" 
+            element={
+              <ProtectedRoute>
+                <ExercisePage />
               </ProtectedRoute>
             } 
           />

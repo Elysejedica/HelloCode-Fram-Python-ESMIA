@@ -5,7 +5,7 @@ import { API_URL } from '../config';
 import Layout from '../components/common/Layout';
 import CodeEditor from '../components/learning/CodeEditor';
 import Quiz from '../components/learning/Quiz';
-import { BookOpen, ChevronLeft, ChevronRight, RefreshCw, AlertCircle, Check } from 'lucide-react';
+import { BookOpen, ChevronLeft, RefreshCw, AlertCircle, Check } from 'lucide-react';
 
 const LessonPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,20 +36,24 @@ const LessonPage: React.FC = () => {
         setLanguage(languageResponse.data);
         
         // Check for existing progress
-        try {
-          const progressResponse = await axios.get(`${API_URL}/api/progress/?lesson=${id}`);
-          if (progressResponse.data.length > 0) {
-            setProgress(progressResponse.data[0]);
-          } else {
-            // Create progress entry if none exists
-            const newProgressResponse = await axios.post(`${API_URL}/api/progress/`, {
-              lesson: parseInt(id as string),
-              completed: false
-            });
-            setProgress(newProgressResponse.data);
+        const token = localStorage.getItem('access');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        const progressResponse = await axios.get(`${API_URL}/api/progress/?lesson=${id}`, { headers });
+        if (progressResponse.data.length > 0) {
+          setProgress(progressResponse.data[0]);
+          // Si la leçon est déjà complétée, marquer tous les quiz et exercices comme complétés
+          if (progressResponse.data[0].completed) {
+            const quizIds = lessonResponse.data.quizzes.map((q: { id: number }) => q.id);
+            const exerciseIds = lessonResponse.data.exercises.map((e: { id: number }) => e.id);
+            setCompletedQuizzes(new Set(quizIds));
+            setCompletedExercises(new Set(exerciseIds));
           }
-        } catch (progressError) {
-          console.error('Progress fetch error:', progressError);
+        } else {
+          const newProgressResponse = await axios.post(`${API_URL}/api/progress/`, {
+            lesson: parseInt(id as string),
+            completed: false
+          }, { headers });
+          setProgress(newProgressResponse.data);
         }
       } catch (err) {
         setError('Failed to load lesson');
@@ -64,17 +68,41 @@ const LessonPage: React.FC = () => {
     }
   }, [id]);
   
-  const handleLessonComplete = async () => {
-    if (!progress || progress.completed) return;
-    
-    setIsSaving(true);
-    
+  const markLessonCompleted = async () => {
+    const token = localStorage.getItem('access');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     try {
-      const response = await axios.patch(`${API_URL}/api/progress/${progress.id}/`, {
-        completed: true
-      });
-      
-      setProgress(response.data);
+      const res = await axios.get(`${API_URL}/api/progress/?lesson=${lesson.id}`, { headers });
+      let updatedProgress;
+      if (res.data.length > 0) {
+        updatedProgress = await axios.patch(
+          `${API_URL}/api/progress/${res.data[0].id}/`, 
+          { completed: true }, 
+          { headers }
+        );
+      } else {
+        updatedProgress = await axios.post(
+          `${API_URL}/api/progress/`, 
+          { lesson: lesson.id, completed: true }, 
+          { headers }
+        );
+      }
+      setProgress(updatedProgress.data);
+      return updatedProgress.data;
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la progression:', error);
+      throw error;
+    }
+  };
+
+  const handleLessonComplete = async () => {
+    setIsSaving(true);
+    try {
+      const updatedProgress = await markLessonCompleted();
+      if (updatedProgress.completed) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        navigate(`/languages/${language.slug}`);
+      }
     } catch (err) {
       console.error('Failed to update progress', err);
     } finally {
@@ -82,15 +110,12 @@ const LessonPage: React.FC = () => {
     }
   };
   
-  
   const canCompleteLesson = () => {
     if (!lesson) return false;
     
-    // Check if all quizzes are completed
     const allQuizzesCompleted = lesson.quizzes.length === 0 || 
       lesson.quizzes.every((quiz: any) => completedQuizzes.has(quiz.id));
     
-    // Check if all exercises are completed
     const allExercisesCompleted = lesson.exercises.length === 0 || 
       lesson.exercises.every((exercise: any) => completedExercises.has(exercise.id));
     
@@ -119,10 +144,16 @@ const LessonPage: React.FC = () => {
     if (currentIndex < sortedLessons.length - 1) {
       navigate(`/lessons/${sortedLessons[currentIndex + 1].id}`);
     } else {
-      // If this was the last lesson, go back to language page
       navigate(`/languages/${language.slug}`);
     }
   };
+  
+  // Supprimer ce useEffect
+  useEffect(() => {
+    setProgress(null); // Cette ligne pose problème
+    setCompletedQuizzes(new Set());
+    setCompletedExercises(new Set());
+  }, [id]);
   
   if (isLoading) {
     return (
@@ -217,36 +248,26 @@ const LessonPage: React.FC = () => {
             <ChevronLeft size={16} className="mr-1" />
             Back to Path
           </button>
-          
-          {progress?.completed ? (
-            <button
-              onClick={navigateToNextLesson}
-              className="btn btn-primary flex items-center"
-            >
-              Next Lesson
-              <ChevronRight size={16} className="ml-1" />
-            </button>
-          ) : (
-            <button
-              onClick={handleLessonComplete}
-              disabled={!canCompleteLesson() || isSaving}
-              className={`btn btn-primary flex items-center ${
-                !canCompleteLesson() || isSaving ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              {isSaving ? (
-                <>
-                  <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></span>
-                  Saving...
-                </>
-              ) : (
-                <>
-                  Complete Lesson
-                  <Check size={16} className="ml-1" />
-                </>
-              )}
-            </button>
-          )}
+
+          <button
+            onClick={handleLessonComplete}
+            disabled={!canCompleteLesson() || isSaving}
+            className={`btn btn-primary flex items-center ${
+              !canCompleteLesson() || isSaving ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            {isSaving ? (
+              <>
+                <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></span>
+                Saving...
+              </>
+            ) : (
+              <>
+                Complete Lesson
+                <Check size={16} className="ml-1" />
+              </>
+            )}
+          </button>
         </div>
       </div>
     </Layout>

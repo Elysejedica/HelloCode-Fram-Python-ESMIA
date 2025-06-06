@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, ProfileView, ProgressListCreateView, ProgressDetailView, UserBadgeListView
+from .views import RegisterView, ProfileView, ProgressListCreateView, ProgressDetailView, UserBadgeListView, RunCodeView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('progress/', ProgressListCreateView.as_view(), name='progress-list-create'),
     path('progress/<int:pk>/', ProgressDetailView.as_view(), name='progress-detail'),
     path('user-badges/', UserBadgeListView.as_view(), name='user-badges'),
+    path('run-code/', RunCodeView.as_view(), name='run-code'),
 ]

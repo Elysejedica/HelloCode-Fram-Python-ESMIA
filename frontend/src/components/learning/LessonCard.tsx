@@ -11,12 +11,14 @@ interface LessonCardProps {
   };
   isCompleted?: boolean;
   isLocked?: boolean;
+  refreshProgress?: () => void;
 }
 
 const LessonCard: React.FC<LessonCardProps> = ({ 
   lesson, 
   isCompleted = false,
-  isLocked = false
+  isLocked = false,
+  refreshProgress
 }) => {
   return (
     <Link

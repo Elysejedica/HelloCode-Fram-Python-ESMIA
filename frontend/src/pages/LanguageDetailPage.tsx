@@ -42,8 +42,22 @@ const LanguageDetailPage: React.FC = () => {
     }
   }, [slug]);
   
+  useEffect(() => {
+    const fetchProgress = async () => {
+      const token = localStorage.getItem('access');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await axios.get(`${API_URL}/api/progress/`, { headers });
+      setProgress(res.data);
+    };
+    fetchProgress();
+  }, [slug]);
+  
   const getLessonProgress = (lessonId: number) => {
     return progress.find(p => p.lesson === lessonId);
+  };
+  
+  const isLessonCompleted = (lessonId: number) => {
+    return progress.some((p) => p.lesson === lessonId && p.completed);
   };
   
   const calculateOverallProgress = () => {
@@ -77,6 +91,17 @@ const LanguageDetailPage: React.FC = () => {
     return !previousLessonProgress?.completed;
   };
   
+  const refreshProgress = async () => {
+    try {
+      const token = localStorage.getItem('access');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const progressRes = await axios.get(`${API_URL}/api/progress/`, { headers });
+      setProgress(progressRes.data);
+    } catch (err) {
+      // Optionnel: gérer l'erreur
+    }
+  };
+
   if (isLoading) {
     return (
       <Layout>
@@ -155,11 +180,12 @@ const LanguageDetailPage: React.FC = () => {
                 const locked = isLessonLocked(index);
                 
                 return (
-                  <LessonCard 
-                    key={lesson.id} 
+                  <LessonCard
+                    key={lesson.id}
                     lesson={lesson}
-                    isCompleted={lessonProgress?.completed || false}
+                    isCompleted={isLessonCompleted(lesson.id)}
                     isLocked={locked}
+                    refreshProgress={refreshProgress}
                   />
                 );
               })}

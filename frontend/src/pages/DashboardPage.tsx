@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../config';
@@ -9,6 +9,7 @@ import { BookOpen, Code, Award, ArrowRight, RefreshCw } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
+  const location = useLocation();
   const [languages, setLanguages] = useState<any[]>([]);
   const [progress, setProgress] = useState<any[]>([]);
   const [badges, setBadges] = useState<any[]>([]);
@@ -39,7 +40,7 @@ const DashboardPage: React.FC = () => {
     };
     
     fetchData();
-  }, []);
+  }, [location.key]); // Ajouter location.key comme dépendance
   
   const getLanguageProgress = (languageId: number) => {
     // Find lesson IDs that belong to this language

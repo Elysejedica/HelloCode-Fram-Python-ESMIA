@@ -82,6 +82,10 @@ const ProfilePage: React.FC = () => {
     };
   };
   
+  const isLessonCompleted = (lessonId: number) => {
+    return profile.progress.some((p: any) => p.lesson === lessonId && p.completed);
+  };
+  
   if (isLoading) {
     return (
       <Layout>
