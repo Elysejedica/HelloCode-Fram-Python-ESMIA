@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
@@ -18,11 +17,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="w-full bg-gray-100 py-2 px-4 flex justify-end">
-          <Link to="/exercise" className="btn btn-outline">
-            Exercice
-          </Link>
-        </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

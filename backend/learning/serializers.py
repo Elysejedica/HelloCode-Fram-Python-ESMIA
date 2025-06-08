@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from accounts.models import User
 from .models import (
     Language, Lesson, Quiz, CodeExercise, UserProgress,
     UserQuizAttempt, UserCodeSubmission, Badge, UserBadge

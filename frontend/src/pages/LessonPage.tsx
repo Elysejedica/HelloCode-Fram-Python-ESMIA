@@ -132,21 +132,6 @@ const LessonPage: React.FC = () => {
     setCompletedExercises(prev => new Set(prev).add(exerciseId));
   };
   
-  const navigateToNextLesson = () => {
-    if (!language || !lesson) return;
-    
-    const sortedLessons = [...language.lessons].sort((a, b) => 
-      a.level - b.level || a.order - b.order
-    );
-    
-    const currentIndex = sortedLessons.findIndex(l => l.id === lesson.id);
-    
-    if (currentIndex < sortedLessons.length - 1) {
-      navigate(`/lessons/${sortedLessons[currentIndex + 1].id}`);
-    } else {
-      navigate(`/languages/${language.slug}`);
-    }
-  };
   
   // Supprimer ce useEffect
   useEffect(() => {

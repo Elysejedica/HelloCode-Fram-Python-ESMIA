@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '../config';
 import { useAuth } from '../contexts/AuthContext';
@@ -8,12 +8,14 @@ import BadgeDisplay from '../components/learning/BadgeDisplay';
 import { User, BookOpen, Award, RefreshCw, AlertCircle } from 'lucide-react';
 
 const ProfilePage: React.FC = () => {
-  const { user } = useAuth();
+  useAuth();
   const [profile, setProfile] = useState<any>(null);
   const [languages, setLanguages] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+  const [avatarUploading, setAvatarUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -82,9 +84,22 @@ const ProfilePage: React.FC = () => {
     };
   };
   
-  const isLessonCompleted = (lessonId: number) => {
-    return profile.progress.some((p: any) => p.lesson === lessonId && p.completed);
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0]) return;
+    const formData = new FormData();
+    formData.append('avatar', e.target.files[0]);
+    setAvatarUploading(true);
+    try {
+      const res = await axios.patch(`${API_URL}/api/profile/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setProfile((prev: any) => ({ ...prev, avatar: res.data.avatar }));
+    } catch (err) {
+      alert("Erreur lors du changement d'avatar");
+    }
+    setAvatarUploading(false);
   };
+
   
   if (isLoading) {
     return (
@@ -122,8 +137,32 @@ const ProfilePage: React.FC = () => {
           <div>
             <div className="card p-6 mb-6">
               <div className="flex items-center mb-4">
-                <div className="h-16 w-16 rounded-full bg-primary-100 flex items-center justify-center text-primary-600">
-                  <User size={24} />
+                <div className="h-16 w-16 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 overflow-hidden relative">
+                  {profile.avatar ? (
+                    <img
+                      src={profile.avatar}
+                      alt="Avatar"
+                      className="h-full w-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <User size={24} />
+                  )}
+                  <button
+                    className="absolute bottom-0 right-0 bg-white rounded-full p-1 border"
+                    onClick={() => fileInputRef.current?.click()}
+                    title="Changer l'avatar"
+                    style={{ fontSize: 12 }}
+                    disabled={avatarUploading}
+                  >
+                    {avatarUploading ? "..." : "✏️"}
+                  </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleAvatarChange}
+                  />
                 </div>
                 <div className="ml-4">
                   <h1 className="text-2xl font-bold">

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/common/Layout';
+import MonacoEditor from '@monaco-editor/react';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const LANGUAGES = [
   { value: 'python', label: 'Python' },
   { value: 'javascript', label: 'JavaScript' },
-  // Ajoute d'autres langages ici si tu veux
+  { value: 'java', label: 'Java' },
 ];
+
+const MONACO_LANG_MAP: { [key: string]: string } = {
+  python: 'python',
+  javascript: 'javascript',
+  java: 'java',
+};
 
 const ExercisePage: React.FC = () => {
   const [code, setCode] = useState<string>('');
@@ -46,12 +53,22 @@ const ExercisePage: React.FC = () => {
             ))}
           </select>
         </div>
-        <textarea
-          className="w-full h-40 p-2 border rounded mb-4 font-mono"
-          value={code}
-          onChange={e => setCode(e.target.value)}
-          placeholder={`Écris ton code ${LANGUAGES.find(l => l.value === language)?.label} ici...`}
-        />
+        <div className="mb-4" style={{ border: '1px solid #ddd', borderRadius: 4 }}>
+          <MonacoEditor
+            height="250px"
+            language={MONACO_LANG_MAP[language]}
+            value={code}
+            onChange={value => setCode(value || '')}
+            options={{
+              fontSize: 16,
+              minimap: { enabled: false },
+              lineNumbers: "on",
+              scrollBeyondLastLine: false,
+              wordWrap: "on",
+              theme: "vs-light",
+            }}
+          />
+        </div>
         <div className="flex gap-4 mb-4">
           <button
             className="btn btn-primary"

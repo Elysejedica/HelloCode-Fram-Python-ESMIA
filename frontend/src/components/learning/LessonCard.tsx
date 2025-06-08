@@ -17,8 +17,7 @@ interface LessonCardProps {
 const LessonCard: React.FC<LessonCardProps> = ({ 
   lesson, 
   isCompleted = false,
-  isLocked = false,
-  refreshProgress
+  isLocked = false
 }) => {
   return (
     <Link

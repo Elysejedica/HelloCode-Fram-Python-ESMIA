@@ -11,6 +11,8 @@ from .models import Progress, UserBadge
 import sys
 import io
 import subprocess
+import tempfile
+import os
 
 # Create your views here.
 
@@ -105,6 +107,27 @@ class RunCodeView(APIView):
                 )
                 out, err = process.communicate(timeout=5)
                 output = out.decode() + err.decode()
+            elif language == 'java':
+                with tempfile.TemporaryDirectory() as tmpdirname:
+                    java_file = os.path.join(tmpdirname, "Main.java")
+                    with open(java_file, "w") as f:
+                        f.write(code)
+                    compile_proc = subprocess.run(
+                        ["javac", "--release", "8", java_file],
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        timeout=5
+                    )
+                    if compile_proc.returncode != 0:
+                        output = compile_proc.stderr.decode()
+                    else:
+                        run_proc = subprocess.run(
+                            ["java", "-cp", tmpdirname, "Main"],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            timeout=5
+                        )
+                        output = run_proc.stdout.decode() + run_proc.stderr.decode()
             else:
                 output = "Langage non supporté."
         except Exception as e:

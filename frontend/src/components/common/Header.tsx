@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { BookOpen, Code, LogOut, User } from 'lucide-react';
+import { BookOpen, Code, LogOut, User, Terminal } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -39,6 +39,15 @@ const Header: React.FC = () => {
                   <span className="flex items-center">
                     <BookOpen size={16} className="mr-1" />
                     Learn
+                  </span>
+                </Link>
+                <Link 
+                  to="/exercise" 
+                  className="px-3 py-2 rounded-md text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50"
+                >
+                  <span className="flex items-center">
+                    <Terminal size={16} className="mr-1" />
+                    Exercice
                   </span>
                 </Link>
               </nav>

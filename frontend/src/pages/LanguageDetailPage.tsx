@@ -5,6 +5,19 @@ import { API_URL } from '../config';
 import Layout from '../components/common/Layout';
 import LessonCard from '../components/learning/LessonCard';
 import { Code, BookOpen, RefreshCw, Layers, AlertCircle } from 'lucide-react';
+import MonacoEditor from '@monaco-editor/react';
+
+const LANGUAGES = [
+  { value: 'python', label: 'Python' },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'java', label: 'Java' },
+];
+
+const MONACO_LANG_MAP: Record<string, string> = {
+  python: 'python',
+  javascript: 'javascript',
+  java: 'java',
+};
 
 const LanguageDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -12,6 +25,10 @@ const LanguageDetailPage: React.FC = () => {
   const [progress, setProgress] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [code, setCode] = useState<string>('');
+  const [output, setOutput] = useState<string>('');
+  const [isRunning, setIsRunning] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('python');
   
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +119,20 @@ const LanguageDetailPage: React.FC = () => {
     }
   };
 
+  const runCode = async () => {
+    setIsRunning(true);
+    setOutput('');
+    try {
+      const token = localStorage.getItem('access');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await axios.post(`${API_URL}/api/run-code/`, { code, language: selectedLanguage }, { headers });
+      setOutput(res.data.output);
+    } catch (err: any) {
+      setOutput('Erreur lors de l\'exécution');
+    }
+    setIsRunning(false);
+  };
+
   if (isLoading) {
     return (
       <Layout>
@@ -176,7 +207,6 @@ const LanguageDetailPage: React.FC = () => {
             {language.lessons
               .sort((a: any, b: any) => a.level - b.level || a.order - b.order)
               .map((lesson: any, index: number) => {
-                const lessonProgress = getLessonProgress(lesson.id);
                 const locked = isLessonLocked(index);
                 
                 return (
