@@ -6,6 +6,7 @@ import Layout from '../components/common/Layout';
 import CodeEditor from '../components/learning/CodeEditor';
 import Quiz from '../components/learning/Quiz';
 import { BookOpen, ChevronLeft, RefreshCw, AlertCircle, Check } from 'lucide-react';
+import { marked } from 'marked';
 
 const LessonPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -186,7 +187,10 @@ const LessonPage: React.FC = () => {
         </div>
         
         <div className="prose prose-blue max-w-none mb-10">
-          <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+          <div
+            className="lesson-content"
+            dangerouslySetInnerHTML={{ __html: marked.parse(lesson.content) }}
+          />
         </div>
         
         {lesson.quizzes && lesson.quizzes.length > 0 && (

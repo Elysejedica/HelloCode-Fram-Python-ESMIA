@@ -14,7 +14,6 @@ import subprocess
 import tempfile
 import os
 
-# Create your views here.
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
@@ -52,7 +51,7 @@ class ProgressListView(APIView):
 
 class ProgressListCreateView(generics.ListCreateAPIView):
     serializer_class = ProgressSerializer
-    permission_classes = [IsAuthenticated]  # <-- AJOUTE CETTE LIGNE
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Progress.objects.filter(user=self.request.user)
@@ -63,7 +62,7 @@ class ProgressListCreateView(generics.ListCreateAPIView):
 class ProgressDetailView(generics.RetrieveUpdateAPIView):
     queryset = Progress.objects.all()
     serializer_class = ProgressSerializer
-    permission_classes = [IsAuthenticated]  # <-- AJOUTE CETTE LIGNE
+    permission_classes = [IsAuthenticated]
 
 class UserBadgeListView(generics.ListAPIView):
     serializer_class = UserBadgeSerializer
@@ -93,13 +92,11 @@ class RunCodeView(APIView):
                     'bool': bool,
                     'enumerate': enumerate,
                     'abs': abs,
-                    # Ajoute d'autres fonctions si besoin
                 }
                 exec(code, {'__builtins__': safe_builtins})
                 sys.stdout = old_stdout
                 output = redirected_output.getvalue()
             elif language == 'javascript':
-                # Nécessite Node.js installé sur le serveur
                 process = subprocess.Popen(
                     ['node', '-e', code],
                     stdout=subprocess.PIPE,

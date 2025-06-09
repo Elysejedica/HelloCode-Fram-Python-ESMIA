@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -12,7 +13,7 @@ class Language(models.Model):
 
 class Lesson(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField(default="")
+    content = RichTextField()
     language = models.ForeignKey(Language, on_delete=models.CASCADE, related_name='lessons')
     level = models.IntegerField()
     order = models.IntegerField(default=0)
