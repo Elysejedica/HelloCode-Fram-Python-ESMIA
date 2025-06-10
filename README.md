@@ -189,12 +189,6 @@ import { marked } from "marked";
 
 ---
 
-## Auteurs
-
-- Projet réalisé par [Ton Nom] dans le cadre de L3 IRD1 ESMIA
-
----
-
 ## Licence
 
 Ce projet est open-source et libre d’utilisation à des fins éducatives.
